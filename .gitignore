@@ -1,0 +1,19 @@
+# Binaries and build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Environment
+.env
+.env.local
+
+# OS generated
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+

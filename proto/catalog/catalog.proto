@@ -1,0 +1,120 @@
+syntax = "proto3";
+
+package catalog;
+option go_package = "streamly/proto/catalog;catalogproto";
+
+service CatalogService {
+  rpc GetCatalogItem (GetCatalogItemRequest) returns (CatalogItemResponse);
+  rpc GetFeed (GetFeedRequest) returns (FeedResponse);
+  rpc GetTrending (GetTrendingRequest) returns (FeedResponse);
+  rpc RecordView (RecordViewRequest) returns (RecordViewResponse);
+  rpc ToggleLike (ToggleLikeRequest) returns (ToggleLikeResponse);
+  rpc GetComments (GetCommentsRequest) returns (GetCommentsResponse);
+  rpc AddComment (AddCommentRequest) returns (CommentResponse);
+  rpc SyncMedia (SyncMediaRequest) returns (CatalogItemResponse);
+}
+
+message CatalogItemMessage {
+  string id = 1;
+  string media_id = 2;
+  string title = 3;
+  string description = 4;
+  string media_type = 5;
+  string artist = 6;
+  double duration = 7;
+  string stream_url = 8;
+  string thumbnail_url = 9;
+  string uploader_id = 10;
+  string uploader_name = 11;
+  string tags = 12;
+  int64 views = 13;
+  int64 likes = 14;
+  string created_at = 15;
+}
+
+message CommentMessage {
+  string id = 1;
+  string catalog_id = 2;
+  string user_id = 3;
+  string user_name = 4;
+  string user_avatar = 5;
+  string content = 6;
+  int64 likes = 7;
+  string created_at = 8;
+}
+
+message GetCatalogItemRequest {
+  string id = 1;
+}
+
+message CatalogItemResponse {
+  CatalogItemMessage item = 1;
+}
+
+message GetFeedRequest {
+  string media_type = 1;
+  int32 page = 2;
+  int32 limit = 3;
+}
+
+message GetTrendingRequest {
+  string media_type = 1;
+}
+
+message FeedResponse {
+  repeated CatalogItemMessage items = 1;
+  string source = 2;
+}
+
+message RecordViewRequest {
+  string media_id = 1;
+}
+
+message RecordViewResponse {
+  string media_id = 1;
+  int64 views = 2;
+}
+
+message ToggleLikeRequest {
+  string media_id = 1;
+  string user_id = 2;
+}
+
+message ToggleLikeResponse {
+  bool liked = 1;
+}
+
+message GetCommentsRequest {
+  string media_id = 1;
+}
+
+message GetCommentsResponse {
+  repeated CommentMessage comments = 1;
+  int32 count = 2;
+}
+
+message AddCommentRequest {
+  string media_id = 1;
+  string content = 2;
+  string user_id = 3;
+  string user_name = 4;
+  string user_avatar = 5;
+}
+
+message CommentResponse {
+  CommentMessage comment = 1;
+}
+
+message SyncMediaRequest {
+  string media_id = 1;
+  string title = 2;
+  string description = 3;
+  string media_type = 4;
+  string artist = 5;
+  double duration = 6;
+  string stream_url = 7;
+  string thumbnail_url = 8;
+  string uploader_id = 9;
+  string uploader_name = 10;
+  string tags = 11;
+}
